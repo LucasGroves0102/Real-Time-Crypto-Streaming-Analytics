@@ -1,0 +1,28 @@
+# Core runtime
+numpy==1.26.4
+pyspark==3.5.1
+pyarrow==17.0.0
+pandas==2.2.2
+
+# Ingestion & Kafka
+confluent-kafka==2.5.0
+websockets==12.0
+orjson==3.10.7
+tenacity==8.2.3
+pydantic==2.9.2
+
+#extra stuff added for later
+python-dotevn==1.0.1
+pyyaml==6.0.2
+
+# Dashboard
+streamlit==1.38.0
+plotly==5.24.1
+
+# Dev & tests
+pytest==8.3.3
+black==24.8.0
+isort==5.13.2
+mypy==1.11.2
+types-orjson==3.6.2
+

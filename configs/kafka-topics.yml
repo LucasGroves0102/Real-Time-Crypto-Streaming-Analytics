@@ -1,0 +1,24 @@
+# All Kafka topics we want this project to have.
+# Edit here → run `make create-topics` to apply (idempotent creation).
+
+topics:
+  - name: smoke.test          
+    partitions: 1
+    replication_factor: 1
+    config:
+      retention.ms: "604800000"         # 7 days
+      cleanup.policy: "delete"
+
+  - name: trades.raw           # raw ingestion from websocket producers
+    partitions: 3
+    replication_factor: 1
+    config:
+      retention.ms: "604800000"
+      cleanup.policy: "delete"
+
+  - name: trades.silver        # cleaned, typed, deduped rows (intermediate)
+    partitions: 3
+    replication_factor: 1
+    config:
+      retention.ms: "1209600000"        # 14 days
+      cleanup.policy: "delete"
