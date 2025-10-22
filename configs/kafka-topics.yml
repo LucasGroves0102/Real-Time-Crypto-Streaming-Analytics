@@ -2,23 +2,30 @@
 # Edit here → run `make create-topics` to apply (idempotent creation).
 
 topics:
-  - name: smoke.test          
+  - name: smoke.test
     partitions: 1
     replication_factor: 1
     config:
-      retention.ms: "604800000"         # 7 days
+      retention.ms: "604800000"
       cleanup.policy: "delete"
 
-  - name: trades.raw           # raw ingestion from websocket producers
+  - name: trades.raw
     partitions: 3
     replication_factor: 1
     config:
       retention.ms: "604800000"
       cleanup.policy: "delete"
 
-  - name: trades.silver        # cleaned, typed, deduped rows (intermediate)
+  - name: trades.raw.dlq
+    partitions: 1
+    replication_factor: 1
+    config:
+      retention.ms: "1209600000"
+      cleanup.policy: "delete"
+
+  - name: trades.silver
     partitions: 3
     replication_factor: 1
     config:
-      retention.ms: "1209600000"        # 14 days
+      retention.ms: "1209600000"
       cleanup.policy: "delete"

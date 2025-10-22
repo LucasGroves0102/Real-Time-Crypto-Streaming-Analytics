@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Spark/Scratch
+data/
+data_checkpoints/
+data/checkpoints/
+*.crc
+.derby/
+
+# OS/IDE
+.DS_Store
+*.iml
+.idea/
+.vscode/
+
+# Env
+.env
+

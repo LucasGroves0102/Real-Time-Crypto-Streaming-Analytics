@@ -27,7 +27,7 @@ from typing import Any, Dict, Optional, List, Tuple
 from datetime import datetime, timezone
 
 import yaml
-from dotevn import load_dotenv
+from dotenv import load_dotenv
 from confluent_kafka import Producer 
 
 load_dotenv()

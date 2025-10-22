@@ -108,3 +108,31 @@ clean:
 	@echo "Cleaning ./data and ./checkpoints contents"
 	@mkdir -p data checkpoints
 	@rm -rf data/* checkpoints/* 2>/dev/null || true
+
+.PHONY: bronze-run bronze-backfill bronze-smoke bronze-clean
+
+# Run the Bronze stream (Kafka → Parquet)
+bronze-run:
+	@echo "Starting Bronze stream..."
+	spark-submit \
+	  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+	  spark/bronze_stream.py
+
+# Backfill from earliest offsets (optional)
+bronze-backfill:
+	@echo "Starting Bronze stream from earliest offsets..."
+	STARTING_OFFSETS=earliest spark-submit \
+	  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+	  spark/bronze_stream.py
+
+# Send test messages to trades.raw to validate end-to-end Bronze
+bronze-smoke:
+	@echo "Producing 5 good + 1 malformed test messages to $(KAFKA_TOPIC_TRADES_RAW)..."
+	python kafka/produce_smoke.py
+	@echo "Now check data/bronze/trades/ and data/bronze/trades_dlq/ for Parquet files."
+
+# Remove Bronze data and checkpoints (CAUTION)
+bronze-clean:
+	@echo "WARNING: deleting Bronze Parquet data and checkpoints..."
+	rm -rf data/bronze/trades data/bronze/trades_dlq checkpoints/bronze/trades checkpoints/bronze/trades_dlq
+	@echo "Done."

@@ -12,7 +12,7 @@ tenacity==8.2.3
 pydantic==2.9.2
 
 #extra stuff added for later
-python-dotevn==1.0.1
+python-dotenv==1.0.1
 pyyaml==6.0.2
 
 # Dashboard
